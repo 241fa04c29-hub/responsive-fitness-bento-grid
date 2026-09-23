@@ -1,0 +1,1313 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PULSE - Fitness Bento Dashboard</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+:root {
+    --bg: #10110f;
+    --card: #191b17;
+    --line: #34382f;
+
+    --text: #f1f0e9;
+    --muted: #92968b;
+
+    --lime: #d6f36a;
+    --orange: #ff8b52;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(214,243,106,0.08),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(255,139,82,0.06),
+            transparent 25%
+        ),
+        var(--bg);
+
+    color: var(--text);
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.dashboard {
+    max-width: 1400px;
+    margin: auto;
+    padding: 35px 4vw 25px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    margin-bottom: 25px;
+}
+
+
+.eyebrow {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 6px;
+}
+
+
+h1 {
+    font-size: 44px;
+
+    line-height: 1;
+
+    letter-spacing: -2px;
+}
+
+
+h1 span {
+    color: var(--lime);
+}
+
+
+.date {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   BENTO GRID
+========================= */
+
+.bento-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.35fr
+        1fr
+        1fr
+        1fr;
+
+    grid-template-rows:
+        250px
+        220px
+        210px;
+
+    gap: 14px;
+}
+
+
+/* =========================
+   COMMON CARD
+========================= */
+
+.card {
+    position: relative;
+
+    overflow: hidden;
+
+    border: 1px solid var(--line);
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191b17,
+            #151713
+        );
+
+    transition: 0.3s;
+}
+
+
+.card:hover {
+    transform: translateY(-4px);
+
+    border-color: #555d4c;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    grid-column: span 2;
+
+    grid-row: span 2;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #252a20,
+            #171914
+        );
+}
+
+
+.tag {
+    display: inline-block;
+
+    background: var(--lime);
+
+    color: #10110f;
+
+    padding: 8px 12px;
+
+    border-radius: 50px;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 22px;
+}
+
+
+.hero h2 {
+    font-size: clamp(45px, 5vw, 76px);
+
+    line-height: 0.9;
+
+    letter-spacing: -5px;
+}
+
+
+.hero h2 em {
+    color: var(--lime);
+
+    font-style: normal;
+}
+
+
+.hero p {
+    max-width: 390px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-top: 22px;
+}
+
+
+/* =========================
+   FITNESS CIRCLE
+========================= */
+
+.orb {
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    display: grid;
+
+    place-items: center;
+
+    flex-shrink: 0;
+
+    background:
+        conic-gradient(
+            var(--lime) 0 72%,
+            #383d32 72% 100%
+        );
+
+    position: relative;
+}
+
+
+.orb::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 12px;
+
+    background: #171914;
+
+    border-radius: 50%;
+}
+
+
+.orb-inner {
+    position: relative;
+
+    text-align: center;
+}
+
+
+.orb-inner strong {
+    display: block;
+
+    font-size: 30px;
+}
+
+
+.orb-inner span {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   LABEL
+========================= */
+
+.label {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================
+   METRIC
+========================= */
+
+.metric {
+    display: block;
+
+    font-size: 43px;
+
+    letter-spacing: -2px;
+
+    margin: 25px 0 12px;
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress {
+    height: 8px;
+
+    background: #34382f;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.progress span {
+    display: block;
+
+    width: 84%;
+
+    height: 100%;
+
+    background: var(--lime);
+
+    border-radius: 20px;
+}
+
+
+.split {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 10px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+/* =========================
+   CALORIES
+========================= */
+
+.muted {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+
+.mini-bars {
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 7px;
+
+    height: 65px;
+
+    margin-top: 18px;
+}
+
+
+.mini-bars i {
+    display: block;
+
+    width: 14%;
+
+    background: var(--orange);
+
+    border-radius: 5px 5px 2px 2px;
+}
+
+
+.mini-bars i:nth-child(1) {
+    height: 40%;
+}
+
+
+.mini-bars i:nth-child(2) {
+    height: 62%;
+}
+
+
+.mini-bars i:nth-child(3) {
+    height: 48%;
+}
+
+
+.mini-bars i:nth-child(4) {
+    height: 82%;
+}
+
+
+.mini-bars i:nth-child(5) {
+    height: 66%;
+}
+
+
+.mini-bars i:nth-child(6) {
+    height: 95%;
+}
+
+
+.mini-bars i:nth-child(7) {
+    height: 73%;
+}
+
+
+/* =========================
+   WORKOUT
+========================= */
+
+.workout {
+    grid-column: span 2;
+}
+
+
+.card-head {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.pill {
+    background: var(--orange);
+
+    color: #111;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+
+.workout h3 {
+    font-size: 29px;
+
+    line-height: 1;
+
+    margin: 20px 0 12px;
+
+    letter-spacing: -1.5px;
+}
+
+
+.workout-meta {
+    display: flex;
+
+    gap: 15px;
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+    margin-bottom: 15px;
+
+    letter-spacing: 1px;
+}
+
+
+.exercise-row {
+    display: grid;
+
+    grid-template-columns:
+        30px
+        1fr
+        45px;
+
+    padding: 9px 0;
+
+    border-top: 1px solid var(--line);
+
+    font-size: 11px;
+}
+
+
+.exercise-row span {
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+/* =========================
+   RECOVERY
+========================= */
+
+.recovery-score {
+    color: var(--lime);
+
+    font-size: 58px;
+
+    font-weight: bold;
+
+    letter-spacing: -4px;
+
+    margin-top: 18px;
+}
+
+
+.recovery p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    max-width: 180px;
+}
+
+
+.recovery-line {
+    height: 4px;
+
+    background: #33372f;
+
+    border-radius: 20px;
+
+    margin-top: 17px;
+}
+
+
+.recovery-line span {
+    display: block;
+
+    width: 92%;
+
+    height: 100%;
+
+    background: var(--lime);
+
+    border-radius: 20px;
+}
+
+
+/* =========================
+   STREAK
+========================= */
+
+.streak {
+    background: var(--lime);
+
+    color: #111;
+}
+
+
+.streak .label {
+    color: #394126;
+}
+
+
+.streak strong {
+    display: inline-block;
+
+    font-size: 80px;
+
+    line-height: 1;
+
+    letter-spacing: -6px;
+
+    margin-top: 30px;
+}
+
+
+.days {
+    font-size: 10px;
+
+    margin-left: 8px;
+
+    font-weight: bold;
+}
+
+
+.streak p {
+    font-size: 11px;
+
+    margin-top: 10px;
+}
+
+
+/* =========================
+   QUOTE
+========================= */
+
+.quote {
+    background: var(--orange);
+
+    color: #17120e;
+}
+
+
+.quote-mark {
+    font-size: 65px;
+
+    line-height: 0.5;
+
+    opacity: 0.5;
+}
+
+
+.quote p {
+    font-size: 25px;
+
+    line-height: 1.05;
+
+    letter-spacing: -1px;
+
+    margin-top: 16px;
+}
+
+
+.author {
+    display: block;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+    margin-top: 28px;
+}
+
+
+/* =========================
+   WEEKLY CHART
+========================= */
+
+.weekly {
+    grid-column: span 2;
+}
+
+
+.week-chart {
+    height: 145px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 14px;
+}
+
+
+.week-chart div {
+    height: 100%;
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.week-chart span {
+    display: block;
+
+    width: 100%;
+
+    max-width: 42px;
+
+    min-height: 8px;
+
+    background: #747b69;
+
+    border-radius: 8px 8px 3px 3px;
+}
+
+
+.week-chart div:nth-child(4) span {
+    background: var(--lime);
+}
+
+
+.week-chart small {
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #666b61;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    padding: 18px 4px 0;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    .bento-grid {
+        grid-template-columns: 1fr 1fr;
+
+        grid-template-rows: auto;
+    }
+
+
+    .hero {
+        grid-column: span 2;
+
+        grid-row: span 1;
+
+        min-height: 330px;
+    }
+
+
+    .workout,
+    .weekly {
+        grid-column: span 2;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .dashboard {
+        padding: 22px 15px;
+    }
+
+
+    .topbar {
+        align-items: flex-start;
+    }
+
+
+    h1 {
+        font-size: 35px;
+    }
+
+
+    .date {
+        font-size: 8px;
+
+        text-align: right;
+
+        max-width: 100px;
+    }
+
+
+    .bento-grid {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+
+    .hero,
+    .workout,
+    .weekly {
+        grid-column: span 1;
+    }
+
+
+    .hero {
+        min-height: 430px;
+
+        display: block;
+    }
+
+
+    .hero h2 {
+        font-size: 58px;
+    }
+
+
+    .orb {
+        width: 145px;
+
+        height: 145px;
+
+        margin: 30px auto 0;
+    }
+
+
+    .card {
+        border-radius: 18px;
+
+        padding: 21px;
+    }
+
+
+    .steps,
+    .calories,
+    .recovery,
+    .streak,
+    .quote {
+        min-height: 200px;
+    }
+
+
+    .weekly {
+        min-height: 250px;
+    }
+
+
+    footer {
+        display: block;
+
+        line-height: 2;
+    }
+
+
+    footer span {
+        display: block;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<main class="dashboard">
+
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <div>
+
+            <p class="eyebrow">
+                PERSONAL FITNESS OS
+            </p>
+
+            <h1>
+                PULSE<span>.</span>
+            </h1>
+
+        </div>
+
+
+        <div class="date">
+            MONDAY · 23 SEP 2026
+        </div>
+
+    </header>
+
+
+
+    <!-- BENTO GRID -->
+
+    <section class="bento-grid">
+
+
+        <!-- HERO -->
+
+        <article class="card hero">
+
+            <div class="hero-content">
+
+                <span class="tag">
+                    TODAY'S FOCUS
+                </span>
+
+
+                <h2>
+                    Build<br>
+                    <em>momentum.</em>
+                </h2>
+
+
+                <p>
+                    A simple training snapshot for stronger days,
+                    better recovery and consistent progress.
+                </p>
+
+            </div>
+
+
+            <div class="orb">
+
+                <div class="orb-inner">
+
+                    <strong>
+                        72%
+                    </strong>
+
+                    <span>
+                        READY
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- STEPS -->
+
+        <article class="card steps">
+
+            <span class="label">
+                DAILY STEPS
+            </span>
+
+
+            <strong class="metric">
+                8,420
+            </strong>
+
+
+            <div class="progress">
+
+                <span></span>
+
+            </div>
+
+
+            <div class="split">
+
+                <span>
+                    Goal 10,000
+                </span>
+
+                <span>
+                    84%
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- CALORIES -->
+
+        <article class="card calories">
+
+            <span class="label">
+                CALORIES
+            </span>
+
+
+            <strong class="metric">
+                486
+            </strong>
+
+
+            <span class="muted">
+                ACTIVE KCAL
+            </span>
+
+
+            <div class="mini-bars">
+
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- WORKOUT -->
+
+        <article class="card workout">
+
+            <div class="card-head">
+
+                <span class="label">
+                    NEXT WORKOUT
+                </span>
+
+                <span class="pill">
+                    18:30
+                </span>
+
+            </div>
+
+
+            <h3>
+                Upper Body<br>
+                Strength
+            </h3>
+
+
+            <div class="workout-meta">
+
+                <span>
+                    45 MIN
+                </span>
+
+                <span>
+                    INTERMEDIATE
+                </span>
+
+            </div>
+
+
+            <div class="exercise-row">
+
+                <span>
+                    01
+                </span>
+
+                <b>
+                    Push Press
+                </b>
+
+                <span>
+                    4 × 8
+                </span>
+
+            </div>
+
+
+            <div class="exercise-row">
+
+                <span>
+                    02
+                </span>
+
+                <b>
+                    Pull Ups
+                </b>
+
+                <span>
+                    4 × 6
+                </span>
+
+            </div>
+
+
+            <div class="exercise-row">
+
+                <span>
+                    03
+                </span>
+
+                <b>
+                    Incline Press
+                </b>
+
+                <span>
+                    3 × 10
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- RECOVERY -->
+
+        <article class="card recovery">
+
+            <span class="label">
+                RECOVERY
+            </span>
+
+
+            <div class="recovery-score">
+                92
+            </div>
+
+
+            <p>
+                Excellent recovery today.
+                Keep intensity controlled.
+            </p>
+
+
+            <div class="recovery-line">
+
+                <span></span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- STREAK -->
+
+        <article class="card streak">
+
+            <span class="label">
+                CURRENT STREAK
+            </span>
+
+
+            <strong>
+                12
+            </strong>
+
+
+            <span class="days">
+                DAYS
+            </span>
+
+
+            <p>
+                Consistency compounds.
+            </p>
+
+        </article>
+
+
+
+        <!-- QUOTE -->
+
+        <article class="card quote">
+
+            <span class="quote-mark">
+                “
+            </span>
+
+
+            <p>
+                Small actions.<br>
+                <strong>Big adaptation.</strong>
+            </p>
+
+
+            <span class="author">
+                PULSE / DAILY NOTE
+            </span>
+
+        </article>
+
+
+
+        <!-- WEEKLY LOAD -->
+
+        <article class="card weekly">
+
+            <div class="card-head">
+
+                <span class="label">
+                    WEEKLY LOAD
+                </span>
+
+                <span class="muted">
+                    5 / 7 DAYS
+                </span>
+
+            </div>
+
+
+            <div class="week-chart">
+
+
+                <div>
+                    <span style="height:42%"></span>
+                    <small>M</small>
+                </div>
+
+
+                <div>
+                    <span style="height:68%"></span>
+                    <small>T</small>
+                </div>
+
+
+                <div>
+                    <span style="height:55%"></span>
+                    <small>W</small>
+                </div>
+
+
+                <div>
+                    <span style="height:84%"></span>
+                    <small>T</small>
+                </div>
+
+
+                <div>
+                    <span style="height:74%"></span>
+                    <small>F</small>
+                </div>
+
+
+                <div>
+                    <span style="height:32%"></span>
+                    <small>S</small>
+                </div>
+
+
+                <div>
+                    <span style="height:12%"></span>
+                    <small>S</small>
+                </div>
+
+
+            </div>
+
+        </article>
+
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <span>
+            PULSE FITNESS DASHBOARD
+        </span>
+
+        <span>
+            HTML + CSS · RESPONSIVE BENTO GRID
+        </span>
+
+    </footer>
+
+
+</main>
+
+
+</body>
+</html>
+```
